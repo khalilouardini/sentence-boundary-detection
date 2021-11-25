@@ -4,8 +4,14 @@ from string import punctuation
 import pickle
 from dataset_context import pad_data, indexer 
 import numpy as np
+import argparse
 
 def find_eos_candidates(text): 
+    """
+    param: text: input text
+    return: returns a list of "end of sentece" (EOS) candidates. each candidate is a tuple,
+            with the index of the EOS and the context around it (3 words before, 3 words after) 
+    """
     # potential end of sentence candidates
     PUNCT = '[\(\)\u0093\u0094`“”\"›〈⟨〈<‹»«‘’–\'``'']*'
     potential_eos = [m for m in re.finditer(r'([\.:?!;])(\s+' + PUNCT + '|' + PUNCT + '\s+|[\s\n]+)', text)]
@@ -27,6 +33,12 @@ def find_eos_candidates(text):
     return eos_candidates
 
 def predict_eos(model_path, vocab_path, input_file):
+    """
+    param: model_path: path of the trained model used for inference
+    param: vocab_path: vocab_path: path of the training vocabulary
+    param: input_file: path to the text file
+    return: None (prints all detected sentences)
+    """
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
     # load torch model
@@ -42,7 +54,7 @@ def predict_eos(model_path, vocab_path, input_file):
         text = f.read()
     text = text[50000000:60000000]
 
-    eos_candidates = find_eos_candidates(text[:2000])
+    eos_candidates = find_eos_candidates(text[:10000])
     max_len = 6
     output = []
     last = 0
@@ -63,9 +75,17 @@ def predict_eos(model_path, vocab_path, input_file):
     print("Done")
 
 if __name__ == '__main__':
-    
-    input_file = 'data/fr-en/europarl-v7.fr-en.en'
-    model_path = 'inference_model.pth'
-    vocab_path = 'vocab.pkl'
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--input_file",
+                        help="dataset path", default='data/fr-en/europarl-v7.fr-en.en')
+    parser.add_argument("--model_path",
+                        help="inference model path", default='inference_model.pth')
+    parser.add_argument("--vocab_path",
+                        default='vocab.pkl', help="path of the training vocabulary ")
+    # Parameters
+    args = parser.parse_args()
+    input_file = args.input_file
+    model_path = args.model_path
+    vocab_path = args.vocab_path
 
     predict_eos(model_path, vocab_path, input_file)

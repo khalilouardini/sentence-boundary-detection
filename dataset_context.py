@@ -10,6 +10,12 @@ from tqdm import tqdm, tqdm_notebook, tnrange
 
 
 def preprocess_text(text, remove_stop_words=False, stemming=False):
+    """
+    :param: text: input text to pre-process
+    :param: remove_stop_words: Whether to remove stop words in the text
+    :param: stemming: Whether to apply stemming to the text
+    :return: the pre-processed text
+    """
     # 1. Remove punctuation from text
     #text = ''.join([c for c in text if c not in punctuation])
     
@@ -38,6 +44,10 @@ def preprocess_text(text, remove_stop_words=False, stemming=False):
     return text
 
 def create_datset_context(text):
+    """
+    param: text: input text
+    return: list of context data points
+    """
     # Pre-processing
     preprocess_text(text)
     # Positive samples
@@ -76,6 +86,10 @@ def create_datset_context(text):
     return dataset_words_pos + dataset_words_neg
 
 def build_vocab(dataset_context):
+    """
+    :param:
+    :return: the vocabulary of the input text
+    """
     # build vocabulary and corresponding counts
     counts = Counter()
     for context in tqdm(dataset_context):
