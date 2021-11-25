@@ -9,7 +9,7 @@ Install depedencies
 # Data
 
 # Training and evaluation
-run `python3 main.py --input_file 'data/fr-en/europarl-v7.fr-en.en' --model_type 'lstm' --context_encoding 'word'`
+run `python3 main.py --model_type 'lstm' --context_encoding 'word'`
 
 # Inference on unseen data
 run `python3 predict.py`
