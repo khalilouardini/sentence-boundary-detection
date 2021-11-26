@@ -61,7 +61,7 @@ def predict_eos(model_path, vocab_path, input_file):
     for eos_candidate in eos_candidates:
         eos_pos = eos_candidate[0]
         x = np.array(pad_data(indexer(eos_candidate[1], word2idx), max_len))
-        x = torch.Tensor(x).int().to(device)
+        x = torch.Tensor(x).to(device).long()
         x = torch.unsqueeze(x, dim=0)
         prob = model(x).flatten()
         if prob > 0.5:
