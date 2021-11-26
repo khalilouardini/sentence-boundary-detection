@@ -19,11 +19,14 @@ if __name__ == '__main__':
                         help="Which recurrent model ", choices=['lstm', 'bi_lstm'])
     parser.add_argument("--context_encoding", default='word',
                     help="Whether to encode at the word or character level ", choices=['word', 'char'])
+    parser.add_argument("--num_epochs", default=10,
+                    help="Number of epochs")
     # Parameters
     args = parser.parse_args()
     training_file = args.input_file
     model_type = args.model_type
     context_encoding = args.context_encoding
+    epochs = args.num_epochs
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -72,7 +75,6 @@ if __name__ == '__main__':
     embedding_dim = 32
     lstm_size = 64
     dropout_rate = 0.15
-    epochs = 10
     learning_rate = 1e-3
     history = {'train_loss': [], 'valid_loss': [],
         'train_acc': [], 'valid_acc': []

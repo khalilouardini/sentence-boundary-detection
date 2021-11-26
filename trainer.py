@@ -99,7 +99,7 @@ def inference(model, dataloader, device):
         test_probs = []
         test_labels = []
         for x, labels in dataloader:
-            x = x.int().to(device)
+            x = x.to(device).long()
             test_probs.append(model(x).flatten())
             test_labels.append(labels)
         probs = torch.cat(test_probs, axis=0).cpu().numpy()
