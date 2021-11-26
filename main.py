@@ -26,7 +26,7 @@ if __name__ == '__main__':
     training_file = args.input_file
     model_type = args.model_type
     context_encoding = args.context_encoding
-    epochs = args.num_epochs
+    epochs = int(args.num_epochs)
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
