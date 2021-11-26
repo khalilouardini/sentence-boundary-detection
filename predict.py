@@ -36,7 +36,7 @@ def predict_eos(model_path, vocab_path, input_file):
     """
     param: model_path: path of the trained model used for inference
     param: vocab_path: vocab_path: path of the training vocabulary
-    param: input_file: path to the text file
+    param: input_file: path to the text file (a subset unseen during training is selected)
     return: None (prints all detected sentences)
     """
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")

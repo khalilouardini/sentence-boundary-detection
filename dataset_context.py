@@ -46,7 +46,7 @@ def preprocess_text(text, remove_stop_words=False, stemming=False):
 def create_datset_context(text):
     """
     param: text: input text
-    return: list of context data points
+    return: list of EOS context representations
     """
     # Pre-processing
     preprocess_text(text)
@@ -87,7 +87,7 @@ def create_datset_context(text):
 
 def build_vocab(dataset_context):
     """
-    :param:
+    :param: a list of context reprensentations
     :return: the vocabulary of the input text
     """
     # build vocabulary and corresponding counts
@@ -112,9 +112,19 @@ def build_vocab(dataset_context):
     return word2idx, words
 
 def indexer(context, word2idx): 
+    """
+    :param: context: sequence of words
+    :param: word2idx: dictionnary mapping words to indices
+    :return: Bag of Words representation
+    """
     return [word2idx[w.lower()] for w in context if w in word2idx]
 
 def pad_data(s, max_len):
+    """
+    :param: s: the sequence to pad
+    :param: max_len: the maximum length for padding
+    :return: the padded sequence
+    """
     padded = np.zeros((max_len,), dtype=np.int64)
     if len(s) > max_len:
         padded[:] = s[max_len]
