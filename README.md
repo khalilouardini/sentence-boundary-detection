@@ -9,7 +9,7 @@ Create an environment and install depedencies with:
 
 ## Data
 
-**Instruction** download the dataset at the Google drive link:_____. Once downloaded, unzip it and copy it in the .data folder.
+**Instruction**  unzip the file `fr-en.zip` in the .data folder.
 
 For the dataset we use the "European Parliament Proceedings Parallel Corpus" 1996-2011 (https://www.statmt.org/europarl/). This corpus was initially designed to benchmark machine translation methods, but has also been used for sentence boundary tasks. We only use the english corpus. The dataset is segmented in sentences (one sentence per line - it contains linebreaks "\n"). To create a dataset we first use a regex to detect all positive samples (i.e a point followed by a linebreak), and all negative samples (a point or other relevant punctuation not followed by a linebreak). For both cases, we want to represent the context of the end of a sentence (EOS). To do so, we will extract 3 words before the EOS, and 3 words after the EOS. This sequence of 6 tokens will be a single datapoint in our dataset.
 
