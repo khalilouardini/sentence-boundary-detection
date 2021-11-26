@@ -78,8 +78,8 @@ def eval_model(model, dataloader, device, criterion):
         model.eval()
         eval_loss, eval_acc = 0, 0
         for x, labels in dataloader:
-            x = x.int().to(device)
-            labels = labels.float().to(device)
+            x = x.to(device).long()
+            labels = labels.to(device).float()
             output = model(x).flatten()
             loss = criterion(output, labels)
             eval_loss += loss.item()
