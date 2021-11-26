@@ -23,8 +23,8 @@ def train_model(model, train_loader, valid_loader, history, epochs, optimizer, c
     for e in range(epochs):
         running_loss, running_accuracy = 0, 0
         for x, labels in train_loader:
-            x = x.int().to(device)
-            labels = labels.float().to(device)
+            x = x.to(device).long()
+            labels = labels.to(device).float()
             # Forward Pass
             optimizer.zero_grad()
             output = model(x).flatten()
