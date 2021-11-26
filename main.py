@@ -72,7 +72,7 @@ if __name__ == '__main__':
     embedding_dim = 32
     lstm_size = 64
     dropout_rate = 0.15
-    epochs = 1
+    epochs = 10
     learning_rate = 1e-3
     history = {'train_loss': [], 'valid_loss': [],
         'train_acc': [], 'valid_acc': []

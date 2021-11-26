@@ -34,7 +34,7 @@ run `python3 main.py --model_type 'lstm' --context_encoding 'word'`
 
 the `main.py` script contains the code to create the dataset, train and evaluate an LSTM model on a subset of the Europarl english corpus. We can also use a dataset, with context encoded at the character level by changing the --context_embedding argument to 'char'. 
 
-The training and evaluation code in pytorch is the `trainer.py` script. We train our LSTM model for 10 epochs with a learning rate of 0.01 and a batch size of 64. For evaluation, since the classification problem is unbalanced, we report precision, recall and f1 score in addition to the accuracy metric. Overall the performance on the test set are:
+The training and evaluation code in pytorch is the `trainer.py` script. We train our LSTM model for 10 epochs with a learning rate of 0.001 and a batch size of 64. For evaluation, since the classification problem is unbalanced, we report precision, recall and f1 score in addition to the accuracy metric. Overall the performance metrics on the test set are:
 
 * accuracy = 0.76
 * precision = 0.92
@@ -44,7 +44,7 @@ The training and evaluation code in pytorch is the `trainer.py` script. We train
 ## Inference on unseen data
 run `python3 predict.py`
 
-The `predict.py` contains the code to run inference with the trained LSTM model on unseen text data. For the example we use a small subset of the Europarl that was not seen during the training. For inference, we first extract a list of potential EOS candidates (We use a regex to extract relevant punctuation, without detecting the linebreaks this time). We use our train vocabulary and encode these candidates into BOW features that are then passed to the trained LSTM to run inference. A trained model is available at `inference_model.pth`. If the predicted probability is greter than 0.5, we predict an EOS. 
+The `predict.py` contains the code to run inference with the trained LSTM model on unseen text data. For the example we use a small subset of the Europarl that was not seen during the training. For inference, we first extract a list of potential EOS candidates (We use a regex to extract relevant punctuation, without detecting the linebreaks this time). We use our train vocabulary and encode these candidates into BOW features that are then passed to the trained LSTM to run inference. A trained model is available at `inference_model.pth`. If the predicted probability is greater than 0.5, we predict an EOS. 
 
 
 ## References
